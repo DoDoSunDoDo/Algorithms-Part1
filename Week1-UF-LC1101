@@ -1,0 +1,66 @@
+
+import java.util.Arrays;
+
+//Input: logs = [[20190101,0,1],[20190104,3,4],[20190107,2,3],[20190211,1,5],[20190224,2,4],[20190301,0,3],[20190312,1,2],[20190322,4,5]], N = 6
+//Output: 20190301
+public class LC1101Practice {
+    public static void main(String[] args) {
+        int[][] logs={{20190101,0,1},{20190104,3,4},{20190107,2,3},{20190211,1,5},{20190224,2,4},{20190301,0,3},{20190312,1,2},{20190322,4,5}};
+        int N = 6;
+        LC1101Practice x = new LC1101Practice();
+        System.out.println(x.earliestDate(logs,N));
+
+    }
+
+    public int earliestDate(int [][] logs, int N){
+        UF uf = new UF(N);
+        //order by log date
+        Arrays.sort(logs, (int[]a, int[]b)->a[0]-b[0]); //lamda
+        for (int[] log: logs){
+            //check two numbers are union or not
+            if(uf.find(log[1])!=uf.find(log[2])){
+                uf.union(log[1],log[2]);
+            }
+            // if there is only one number left
+            if (uf.count==1){
+                return log[0];
+            }
+        }
+        return -1;
+    }
+
+}
+///template
+class UF{
+    int[] root;
+    int[] size;
+    int count;
+    public UF (int n){
+        this.root = new int[n];
+        this.size = new int[n];
+        this.count=n;
+        for(int i =0; i<n; i++){
+            root[i]=i;
+            size[i]=1;
+        }
+    }
+    public int find (int x){
+        if (root[x] !=x) return root[x]=find(root[x]);
+        return root[x];
+    }
+    public void union(int x, int y){
+        int rootX = find(x);
+        int rootY = find(y);
+        if(rootX != rootY){
+            if(size[rootX]>size[rootY]) {
+                root[rootY]=rootX;
+                size[rootX]+=size[rootY];
+            } else{
+                root[rootX]=rootY;
+                size[rootY]+=size[rootX];
+            }
+         this.count --;
+        }
+    }
+
+}
