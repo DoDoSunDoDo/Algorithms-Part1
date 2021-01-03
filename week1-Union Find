@@ -1,0 +1,46 @@
+public class UnionFind02 {
+    //initialize the dataset
+    //need one root array
+    int[] root;
+    //add rank for rank optimization
+    int[] rank;
+    //get the constructor
+    public UnionFind02(int number){
+        //let all number point to itself individually
+        root= new int[number];
+        rank= new int[number];
+        for(int i = 0; i <number; i++) {
+            root[i] = i;
+            rank[i] =0;
+        }
+    }
+
+    // 2nd step write the find method which return the root id
+    public int find(int x){
+        if(root[x] == x) return root[x];
+        return find(root[x]);
+        // the next line is optimization of path compression
+        // return root[x] = find(root[x]);
+    }
+
+    // 3rd step write union method
+    // based on 2nd, find their root and combine them
+    public void union(int x, int y){
+        int rootX = find(x);
+        int rootY = find(y);
+        //merge rootx to rooty
+        if(rootX != rootY) root[rootX]=rootY;
+        // the next line is optimization by rank
+        if(rootX != rootY){
+            if(rank[rootX]>rank[rootY]) root[rootY]=rootX;
+            else if (rank[rootX]<rank[rootY]) root[rootX]=rootY;
+            else {
+                // add X into Y
+                root[rootX]=rootY;
+                rank[rootY]+= 1;
+            }
+        }
+    }
+
+
+}
