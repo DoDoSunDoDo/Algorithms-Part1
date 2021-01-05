@@ -1,0 +1,52 @@
+package com.Princeton.Week1.UnionFind.UF04;
+// isConnected = {{1,1,0},{1,1,0},{0,0,1}}
+public class LC547 {
+    public static void main(String[] args) {
+        LC547 x = new LC547();
+        int [][] P={{1,1,0},{1,1,0},{0,0,1}};
+        System.out.println(x.provinceNumber(P));
+
+    }
+
+
+    public int provinceNumber (int[][] P){
+        UF uf = new UF(P.length);
+        //first find the linked province, then union the one ==1
+        for(int i =0; i<P.length; i++){
+            for(int j=0; j<P[i].length; j++){
+                if (P[i][j]==1) uf.union(i,j);
+            }
+        }
+        int res =0;
+        //if the root of province is itself, means it is one province
+        for(int i =0; i<P.length;i++){
+            if(uf.find(i)==i) res++;
+        }
+        return res;
+    }
+
+
+
+}
+class UF{
+    int[] root;
+    // size here
+    public UF(int n){
+    this.root = new int[n];
+    for(int i =0; i <n; i++){
+        root[i]=i;
+        //add size here
+    }    }
+
+    public int find(int x){
+        if(root[x]!= x) return find(root[x]);
+        //optimize here
+        return root[x];
+    }
+
+    public void union(int x, int y){
+            if(find(x)!=find(y)) root[find(x)]=find(y);
+            //optimize for size here
+    }
+
+}
