@@ -1,0 +1,17 @@
+public class LC744 {
+    public int firstLetter(char[] sums, char target) {
+        int l = 0;
+        int r = sums.length - 1;
+       
+        if(target>=sums[r]) return sums[0];
+
+        while (l < r) {
+            int mid = l +(r-l)/2;
+            //if(sums[mid] == target) return sums[mid+1];
+            if(sums[mid]>= target) r=mid; 
+            else l=mid+1;
+        }
+        return sums[r];
+    }
+
+}
