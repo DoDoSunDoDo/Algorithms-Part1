@@ -1,4 +1,4 @@
-public class BinarySearchTemplate {
+public class BinarySearchTemplate { 
 
     static int binarysearch(int[] nums, int target){
         int left = 0, right = nums.length-1;
