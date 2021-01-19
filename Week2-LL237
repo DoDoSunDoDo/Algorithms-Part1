@@ -1,0 +1,10 @@
+public class LC237 {
+    public void deleteNode(ListNode node) {
+        // corner case
+        if(node == null || node.next ==null) return;
+        //copy next to current and then delete next
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+}
