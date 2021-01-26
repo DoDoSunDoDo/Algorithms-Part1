@@ -1,0 +1,39 @@
+//94
+
+
+class Solution {
+  public List<Integer> inorderTraversal(TreeNode root) {
+    //recursion is the same with preorder, only change the order of res.add
+    List<Integer> res = new List<>();
+    inorder(root, res);
+    return res;
+  }
+  public void res(TreeNode root, List<Integer> res){
+    if (root == null) return;
+    inorder(root.left, res);
+    res.add(root.val);
+    inorder(root.right, res);
+  }
+}
+
+/////transveral
+class Solution {
+  public List<Integer> inorderTraversal(TreeNode root) {
+    List<Integer> res = new ArrayList<>();
+    Stack<TreeNode> stack = new Stack<>();
+    TreeNode cur = root;
+    while (cur != null || !stack.isEmpty()){
+      if (cur != null){
+        stack.push(cur);
+        cur = cur.left;
+      } else{
+        cur = stack.pop();
+        res.add(cur.val);
+        cur = cur.next;
+      }
+      
+    }
+    return res;
+    
+  }
+}
