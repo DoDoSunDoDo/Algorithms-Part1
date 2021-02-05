@@ -1,0 +1,17 @@
+public class LC45 {
+    //45
+        public int jump(int[] nums) {
+            int end=0;  //维护当前能够到达最远的下标位置,作为指针，是本次循环中单次能跳多远
+            int count=0;    //记录最小跳跃次数
+            int maxLength=0;//是总的能伸到多长
+            //不需要遍历最后一个元素，因为最后一个元素是我们需要到达的位置
+            for(int i=0;i<nums.length-1;i++){
+                maxLength=Math.max(maxLength,i+nums[i]);
+                if(i==end){//遇到边界，就更新边界，并且步数加一
+                    end=maxLength;
+                    count++;
+                }
+            }
+            return count;
+        }
+    }
